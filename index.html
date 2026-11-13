@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compacta PDF</title>
+  <meta name="description" content="Diminua o tamanho de arquivos PDF direto no seu computador. Nenhum arquivo é enviado para a internet.">
+  <meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121514" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="modulepreload" href="vendor/ghostscript/gs.js">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <img class="logo" src="icons/icon.svg" alt="" width="40" height="40">
+      <div>
+        <h1>Compacta PDF</h1>
+        <p class="lede">Deixe seus PDFs leves para enviar e guardar. Tudo acontece no seu computador: nenhum arquivo é enviado para a internet.</p>
+      </div>
+    </header>
+
+    <section class="panel" aria-labelledby="quality-label">
+      <h2 id="quality-label" class="label">Qualidade</h2>
+      <div class="segmented" role="radiogroup" aria-labelledby="quality-label">
+        <label><input type="radio" name="preset" value="small"><span>Menor tamanho</span></label>
+        <label><input type="radio" name="preset" value="balanced" checked><span>Equilibrado</span></label>
+        <label><input type="radio" name="preset" value="high"><span>Alta qualidade</span></label>
+      </div>
+      <p class="hint" id="preset-hint"></p>
+    </section>
+
+    <label class="dropzone" id="dropzone">
+      <input type="file" id="file-input" accept="application/pdf,.pdf" multiple>
+      <svg class="drop-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="drop-title">Arraste seus PDFs para cá</span>
+      <span class="drop-sub">ou <span class="link-like">clique para escolher</span> · pode ser mais de um</span>
+    </label>
+
+    <p class="engine-status" id="engine-status" role="status">Preparando o compactador…</p>
+
+    <section class="results" id="results" hidden>
+      <div class="results-head">
+        <h2 class="label">Arquivos</h2>
+        <div class="results-actions">
+          <button type="button" class="btn ghost" id="clear-all">Limpar lista</button>
+          <button type="button" class="btn primary" id="download-all" hidden>Baixar todos</button>
+        </div>
+      </div>
+      <ul class="file-list" id="file-list"></ul>
+    </section>
+
+    <footer class="footer">
+      <p>Funciona sem internet depois da primeira visita. Feito com <a href="https://github.com/okathira/ghostpdl-wasm" rel="noopener">Ghostscript</a> (licença AGPL).</p>
+    </footer>
+  </main>
+
+  <template id="row-template">
+    <li class="file-row">
+      <div class="file-main">
+        <p class="file-name"></p>
+        <p class="file-meta"></p>
+        <div class="progress" hidden><div class="progress-bar"></div></div>
+      </div>
+      <div class="file-actions"></div>
+    </li>
+  </template>
+</body>
+</html>
